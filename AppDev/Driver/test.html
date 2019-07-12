@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body>
+    <button id="setDrivers">Set Drivers</button>
+    <button id="display">Display</button>
+    <div id="all_rides"></div>
+    <script>
+        var ref = firebase.database();
+        var x = document.getElementsByClassName("modal_content");
+
+        ref.ref('rides').on('value', (snapshot) => {
+            snapshot.forEach((child) => {
+                //console.log(child.key, child.val());
+                var date
+            });
+        })
+    </script>
+    <script src="script/test_display_rides.js"></script>
+</body>
+
+</html>

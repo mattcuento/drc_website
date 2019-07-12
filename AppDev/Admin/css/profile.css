@@ -1,0 +1,35 @@
+#info_labels {
+  float: left;
+  text-align: left;
+  width: 250px;  
+}
+
+#info_values {
+  float: left;
+  text-align: right;
+  width: 250px;  
+}
+
+#user_info {
+  margin: 0 auto;
+  width: 500px;
+}
+
+p.info_label {
+  font-family: Roboto;
+  font-size: 14pt;
+  color: #035642;
+  font-weight: 500;
+  display: inline;
+}
+
+p.info_value {
+  display: inline;
+  font-size: 14pt;
+}
+
+#edit {
+  position: absolute;
+  top: 500px;
+  left: 45%;
+}

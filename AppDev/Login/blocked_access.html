@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cal Poly DRC Tram Service | Blocked Access</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/blocked_access_styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+</head>
+
+<body>
+    <div class="eligCard">
+        <h1>Your eligibility date has passed!</h1>
+        <h2>Please contact the DRC to extend your elegibility.</h2>
+        <p>Phone: 805-756-6184<br>Hours: M-F 8AM - 5PM</p>
+    </div>
+</body>
+
+</html>

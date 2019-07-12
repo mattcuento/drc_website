@@ -1,0 +1,97 @@
+/* Admin - Student Scheduling Style Page */
+
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 70%;
+}
+
+/* form */
+#scheduleForm {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+#eachInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#buts{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+/* Mapbox */
+#map {
+  position: absolute;
+  width:30%;
+  height:70%;
+  right: 20px;
+}
+
+h5 {
+  font-size: 10pt;
+}
+
+/* dropdown of pick-up and drop-off locations */
+#locations {
+  font-family: Roboto;
+  color: black;
+  font-size: 12pt;
+}
+
+.popup {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.save-content, .invalid-content , .not-found-content, .pass-eligibility-content{
+  background-color: #fefefe;
+  margin: 15% 20%;
+  /* 15% from the top and centered */
+  padding: 30px;
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.descriptions_link {
+    text-align: right;
+    padding-right: 20px;
+}

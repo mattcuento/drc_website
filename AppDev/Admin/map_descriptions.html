@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DRC Tram Service | Map Descriptions</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/map_descriptions.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <span class="navbar-text">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item dropdown">
+            <a title="Scheduling" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a title="New Ride" class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+              <a title="Edit/Delete Ride" class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+            </div>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register_admin.html">Add an Admin</a>
+        </li>
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+        <li class="nav-item">
+          <a title="Vehicles" class="nav-link" href="./emergency.html">Vehicles</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a title="More" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+               <!--  <a title="Register Student" class="dropdown-item" href="./register.html">Register Student</a> -->
+                <a title="Help" class="dropdown-item" href="./admin_howto.html">Help</a>
+              <a title="Logout" class="dropdown-item" href="../Login/login.html">Logout</a>
+            </div>
+        </li>
+      </ul>
+    </div>
+    </span>
+    </nav>
+    <!-- End of Navigation Bar -->
+
+    <br>
+    <!--headings-->
+    <div class="wrapper">
+        <div class="page_title">
+            <h1 class="title_display">Map Descriptions</h1>
+        </div>
+        <div class="decorativeLine"></div>
+        <div class="filler"></div>
+
+        <table id="description_table">
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 1</em></p>
+                </td>
+                <td>
+                    <p>Near the bench at the western corner of the A-1 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 3</em></p>
+                </td>
+                <td>
+                    <p>On the wall of the southeast corner of Building 3 facing College Ave.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 4</em></p>
+                </td>
+                <td>
+                    <p>On the wall of the southeast corner of the C-4 parking lot facing into the parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 5</em></p>
+                </td>
+                <td>
+                    <p>On the northernmost wall of Building 5 at the south end of Dexter Rd.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 6</em></p>
+                </td>
+                <td>
+                    <p>At the end of the loop in front of the PAC, Building 6.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 6R</em></p>
+                </td>
+                <td>
+                    <p>Top level, right side of PAC parking structure outside of elevators.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 7</em></p>
+                </td>
+                <td>
+                    <p>On the pole next to the southwest corner pillar of Building 197.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 8</em></p>
+                </td>
+                <td>
+                    <p>In the H-4 parking lot in front of (south of) Building 8.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 10</em></p>
+                </td>
+                <td>
+                    <p>On the light pole at the corner of Building 10 at the intersection of N. Poly View Dr. and Via Carta.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 11</em></p>
+                </td>
+                <td>
+                    <p>On the bench next to the loop near Building 10 and the H-11 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 12</em></p>
+                </td>
+                <td>
+                    <p>At the northeast end of the H-12 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 13</em></p>
+                </td>
+                <td>
+                    <p>At the northwest end of the H-13 parking lot near the handicap parking spaces.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 14</em></p>
+                </td>
+                <td>
+                    <p>At the northwest end of the southern portion of the H-14 parking lot near the handicap parking spaces.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 15</em></p>
+                </td>
+                <td>
+                    <p>At the northern corner of the H-15 parking lot near the handicap parking spaces.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 17</em></p>
+                </td>
+                <td>
+                    <p>In the parking lot at the corner of Highland Dr. and Mount Bishop Rd.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 18</em></p>
+                </td>
+                <td>
+                    <p>Near the east entrance to Building 18. 19 In dirt past parking permit kiosk near Highway 1 entrance to campus.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 20</em></p>
+                </td>
+                <td>
+                    <p>On lightpost between buildings 26 and 20.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 21</em></p>
+                </td>
+                <td>
+                    <p>At the intersection of S Poly View Dr. and University Dr.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 27</em></p>
+                </td>
+                <td>
+                    <p>On concrete bench outside the southern entrance to Building 27. (Behind the Health Center).</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 35</em></p>
+                </td>
+                <td>
+                    <p>On the light pole across the street from building 35.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 42</em></p>
+                </td>
+                <td>
+                    <p>On the pole near the entrance of the first driveway south of Tahoe Rd. leading to Mott Gym basketball court.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 43</em></p>
+                </td>
+                <td>
+                    <p>On the stop sign in front of the Rec Center.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 44</em></p>
+                </td>
+                <td>
+                    <p>On pole on left hand entrance to Building 45 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 45</em></p>
+                </td>
+                <td>
+                    <p>On pole in the right side of the parking lot entrance behind building 45.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 48</em></p>
+                </td>
+                <td>
+                    <p>In the second parking lot on the right hand side past Village Drive next to Building 48.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 52</em></p>
+                </td>
+                <td>
+                    <p>On the light pole at the corner of Building 52 at the intersection of S. Poly View Dr. and Via Carta.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 56</em></p>
+                </td>
+                <td>
+                    <p>At the entrance to the Building 56 loop area.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 57</em></p>
+                </td>
+                <td>
+                    <p>At the east end of the H-1 parking lot on Mount Bishop Rd.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 61</em></p>
+                </td>
+                <td>
+                    <p>On one of the handicap stalls on California Blvd., west of O’Neill green and just north of the football stadium.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 100</em></p>
+                </td>
+                <td>
+                    <p>At the Building 100 corner for the intersection of N. Perimeter Rd. and Village Dr.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 108</em></p>
+                </td>
+                <td>
+                    <p>On the handicap parking spot sign in the driveway directly behind building 108 (Sequoia Hall).</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 109</em></p>
+                </td>
+                <td>
+                    <p>Next to building 109 at the southern end of the R-1 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 112</em></p>
+                </td>
+                <td>
+                    <p>In front of Sierra Madre near the easternmost Bus Stop on Grand Ave.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 113</em></p>
+                </td>
+                <td>
+                    <p>At the southwest corner of the basketball court between Sierra Madre and Yosemite.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 114</em></p>
+                </td>
+                <td>
+                    <p>On deer road, located on the bench between towers 2 and 3 of Sierra Madre.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 124</em></p>
+                </td>
+                <td>
+                    <p>In the handicap parking lot out front of Building 124 on Cuesta Avenue.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 133</em></p>
+                </td>
+                <td>
+                    <p>In the C-1 parking lot near the handicap parking spaces on the southwest corner.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 134</em></p>
+                </td>
+                <td>
+                    <p>Just north of the information booth at the Grand Ave. & Slack St. entrance to campus.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 150</em></p>
+                </td>
+                <td>
+                    <p>Near the handicap parking space of the parking lot for Building 150.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 155</em></p>
+                </td>
+                <td>
+                    <p>Near the east entrance to Building 155.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 186</em></p>
+                </td>
+                <td>
+                    <p>On the south wall of Building 186, facing S. Perimeter Rd.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 197</em></p>
+                </td>
+                <td>
+                    <p>Near the southwestern end of the H-2 parking lot at the entrance to the walkway to building 197.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 16L</em></p>
+                </td>
+                <td>
+                    <p>In the dirt on the right hand side past the parking permit purchaser at the southeast end of the H-16 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 16U</em></p>
+                </td>
+                <td>
+                    <p>On the second light pole on the right hand side as you drive east through the center of the H-16 parking lot.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 170L</em></p>
+                </td>
+                <td>
+                    <p>At the bottom of Cerro Vista Circle just northwest of the Community Center.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 170U</em></p>
+                </td>
+                <td>
+                    <p>At the top of Cerro Vista Circle on the east side of the road.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 171A</em></p>
+                </td>
+                <td>
+                    <p>In the handicap space in front of Aliso on Village Drive, just southwest of Canyon Post.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 171E</em></p>
+                </td>
+                <td>
+                    <p>On the concrete bench at entrance to building 171E.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 171G</em></p>
+                </td>
+                <td>
+                    <p>In front of Gypsum, near the top entrance to the handicap access ramp.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 171H</em></p>
+                </td>
+                <td>
+                    <p>On the handicap access sign that is just to the right of the path that is just northeast of Building 171H.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="stop_name">
+                    <p><em>Stop 171I</em></p>
+                </td>
+                <td>
+                    <p>Near the easternmost vehicle pull in on the Building 171B side of Vista Caballo.</p>
+                </td>
+            </tr>
+        </table>
+
+        <div id="mapHolder">
+            <div id="map"></div>
+        </div>
+
+    </div>
+    <script>
+        function logout() {
+            var logout = confirm("Are you sure to log out?");
+            if (logout) {
+                firebase.auth().signOut().then(function() {
+                    window.location = "../Login/login.html"
+
+                }).catch(function(error) {
+                    // An error happened.
+                });
+            }
+        }
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                alert("You haven't signed in yet, we are directing you to the login page");
+                window.location = "../Login/login.html";
+            } else {
+                console.log(user.email);
+            }
+        });
+
+        var bounds = [
+            [-120.683, 35.295], // Southwest coordinates
+            [-120.65, 35.316] // Northeast coordinates
+        ];
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2FscG9seWRyYyIsImEiOiJjanQzbTdyY3oxdmM1M3lwaXBodnYxdWZyIn0.ExsTXwSdoYErBWNRc-y09Q';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/calpolydrc/cjt3m8xjq1lov1fpa62pvwjni',
+            center: [-120.659809, 35.301004],
+            zoom: 15.0,
+            maxBounds: bounds
+        });
+
+        map.on('click', function(e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['drcstops']
+            });
+            if (!features.length) {
+                return;
+            }
+            var feature = features[0];
+            var popup = new mapboxgl.Popup({
+                    offset: [0, -15]
+                })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML('<h2>' + feature.properties.stopnum + '</h2><h5>' + feature.properties.description + '</h5>')
+                .setLngLat(feature.geometry.coordinates)
+                .addTo(map);
+        });
+    </script>
+
+    <!--For Bootstrap NavBar-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>

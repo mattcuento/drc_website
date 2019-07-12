@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>DRC Tram Service | Register</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/register.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.5.7/angular-messages.min.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt=""> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+<span class="navbar-text">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+          <a title="Scheduling" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="New Ride" class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+            <a title="Edit/Delete Ride" class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+      </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register_admin.html">Add an Admin</a>
+        </li>
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a title="Vehicles" class="nav-link" href="./emergency.html">Vehicles</a>
+      </li>
+      <li class="nav-item dropdown">
+          <a title="More" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_howto.html">Help</a>
+            <a title="Logout" class="dropdown-item" href="../Login/login.html" onclick="logout()">Logout</a>
+          </div>
+      </li>
+    </ul>
+  </div>
+  </span>
+      </nav>
+    <!-- End of Navigation Bar -->
+
+    <div class="wrapper">
+            <br>
+            <h1>Register an Admin</h1>
+            <div class="decorativeLine"></div>
+            <!-- end decorativeLine -->
+            <br>
+            <!--What is needed to register?-->
+            <div class="registerInputs" ng-controller="mainCtrl">
+                <form name="add_user_form">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{ 'has-error' : add_user_form.user_password.$dirty && add_user_form.user_password.$invalid }">
+                            <!--<input id = "txtEmail" type = "email" placeholder="Email"> -->
+                            <div id="eachInfo">
+                                <div><p>Gmail Account Name (without @gmail.com)</p></div>
+                                <div><input id = "admin_username" class="textBoxes" placeholder="Gmail User Name" name="name" ng-model="theName" required pattern=".{2,}" /> </div>
+                            </div>
+
+                            <div id="eachInfo">
+                                <div><p>Full Name</p></div>
+                                <div><input id = "admin_name" class="textBoxes" placeholder="First Last" name="name"  required pattern=".{2,}" /></div>
+                            </div>
+
+                            <div id="eachInfo">
+                                <div><p>Enter password</p> </div>
+                                <div><input id = "admin_Password" type = "password" placeholder="Password" required ng-model="user.user_password" password-verify="{{user.confirm_password}}" name="user_password" class="textBoxes"> </div>
+                            </div>
+                            
+                            <div class="help-block" ng-messages="add_user_form.user_password.$error" ng-if="add_user_form.user_password.$dirty"></div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : add_user_form.confirm_password.$dirty && add_user_form.confirm_password.$invalid }">
+                            <div id = "eachInfo">
+                                <div><p>Confirm password</p></div>
+                                <div><input class="textBoxes" id="admin_confirm_password" ng-model="user.confirm_password" name="confirm_password" type="password" placeholder="Confirm Password" required password-verify="{{user.user_password}}"></div>
+                            </div>
+                            
+                            <div class="help-block" ng-messages="add_user_form.confirm_password.$error" ng-if="add_user_form.confirm_password.$dirty">
+                                <p ng-message="passwordVerify" style="color:#FF0000;">Passwords don't match</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="btnadminRegister" type="submit" class="greenButton" name="registerButton" value="Register" ng-disabled="form.$invalid">Register</button>
+                    </div>
+                </form> 
+            </div>          
+    </div>
+    <!-- end wrapper -->
+
+    <script src = "./script/register_admin.js"></script>
+</body>
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+
+
+<script>
+    function logout(){
+        var logout = confirm("Are you sure to log out?");
+        if (logout){
+            firebase.auth().signOut().then(function() {
+            window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+              // An error happened.
+            });
+        }
+    }
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user){
+        alert("You haven't signed in yet, we are directing you to the login page");
+        window.location = "../Login/login.html";
+      }else{
+        console.log(user.email);
+      }
+    });
+</script>
+
+<script>
+    (function() {
+        "use strict";
+        angular
+            .module('app', ['ngMessages'])
+            .controller('mainCtrl', mainCtrl)
+            .directive('passwordVerify', passwordVerify);
+
+        function mainCtrl($scope) {
+            // Some code
+        }
+        function passwordVerify() {
+            return {
+                restrict: 'A', // only activate on element attribute
+                require: '?ngModel', // get a hold of NgModelController
+                link: function(scope, elem, attrs, ngModel) {
+                    if (!ngModel) return; // do nothing if no ng-model
+
+                    // watch own value and re-validate on change
+                    scope.$watch(attrs.ngModel, function() {
+                        validate();
+                    });
+
+                    // observe the other value and re-validate on change
+                    attrs.$observe('passwordVerify', function(val) {
+                        validate();
+                    });
+
+                    var validate = function() {
+                        // values
+                        var val1 = ngModel.$viewValue;
+                        var val2 = attrs.passwordVerify;
+
+                        // set validity
+                        ngModel.$setValidity('passwordVerify', val1 === val2);
+                    };
+                }
+            }
+        }
+    })();
+</script>
+
+</html>

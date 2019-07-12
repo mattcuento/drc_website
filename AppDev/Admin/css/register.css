@@ -1,0 +1,26 @@
+
+.loginInputs, .registerInputs, #registerHeader, #loginHeader {
+  text-align: left;
+}
+
+input {
+  color: gray;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
+#eachInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.buts{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

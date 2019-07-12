@@ -1,0 +1,163 @@
+#content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* green buttons with white text */
+.greenButtonStudent {
+    height: 3.5vw;
+    width: 17.5vw;
+    background-color: #035642;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    font-family: Roboto;
+    font-size: 1.3vw;
+    color: white;
+    font-weight: 500;
+  }
+
+
+/* dropdown of pick-up and drop-off locations */
+#locations {
+    font-family: Roboto;
+    color: black;
+    font-size: 12pt;
+  }
+
+#eachInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+#buttons_div{
+  height: 14vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.popup {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+.save-content, .invalid-content , .not-found-content, .pass-eligibility-content{
+    background-color: #fefefe;
+    margin: 15% 20%;
+    /* 15% from the top and centered */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 60%;
+    /* Could be more or less, depending on screen size */
+}
+
+.add-content, .edit-content{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: 15% 20%;
+  /* 15% from the top and centered */
+  padding: 30px;
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+}
+
+.bottom_bar{
+  display: flex;
+  justify-content: center;
+  background-color:#035642;
+  position: fixed;
+  bottom: 0;
+  height: 12.9%;
+  width: 100%;
+  z-index: 3;
+}
+
+.bottom_bar_text{
+  display: flex;
+  flex-direction: row;  
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  left: 10%
+}
+
+#selected_ride, ride_form {
+    display: flex;
+    float: left;
+  }
+
+  /* dropdown of pick-up and drop-off locations */
+  #locations {
+    font-family: Roboto;
+    color: black;
+    font-size: 12pt;
+  }
+
+  /* dropdown of rides */
+  #rides, #days {
+    font-family: Roboto;
+    color: black;
+    font-size: 12pt;
+    width: 300px;
+  }
+
+  /* Mapbox */
+  #map {
+    position:absolute;
+    top:150px;
+    bottom:0;
+    right: 20px;
+    width:30%;
+    height:70%;
+    font-size: 12pt;
+  }
+
+  h5 {
+    font-size: 10pt;
+  }
+
+  /* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .pop-button {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+#list_view_link {
+    font-size: 1.3vw;
+}

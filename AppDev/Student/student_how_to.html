@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> DRC Tram Service | Student How To </title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="./css/student_styles.css">
+</head>
+
+<body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%; z-index: 1;">
+        <a title="Home" class="navbar-brand" href="./index.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly Logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <span class="navbar-text">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./map_descriptions.html">Map Descriptions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./student_how_to.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Login/login.html" onclick="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </span>
+    </nav>
+    <!-- end of nav bar -->
+
+    <br>
+    <div class="wrapper">
+        <h2>To schedule a new ride:
+            <h2>
+                <p>Visit <a class="link" href="index.html">Home page</a>, click "Add Ride" in the nevigation bar and fill out the requested info. If confirmed, the ride will appear on your homepage calendar.</p><br>
+                <h2>To edit or delete a ride:</h2>
+                <p>Visit <a class="link" href="index.html">Home page</a>, click "Edit Ride" in the nevigation and fill out the requested info. If edited, the updated ride will appear on your homepage calendar. If deleted, the ride will no longer appear on
+                    your homepage calendar.
+                </p><br>
+                <h2>For any other questions or concerns:</h2>
+                <p>Visit <a class="drc_link" href="https://drc.calpoly.edu">Cal Poly's DRC Website</a> or visit Building 124.</p><br>
+    </div>
+
+</body>
+
+    <script>
+
+        function logout(){
+            var logout = confirm("Are you sure to log out?");
+            if (logout){
+                firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+                }).catch(function(error) {
+                  // An error happened.
+                });
+            }
+        }
+        
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            alert("You haven't signed in yet, we are directing you to the login page");
+            window.location = "../Login/login.html";
+        } else {
+            console.log(user.email);
+        }
+    });
+    </script>
+
+
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</html>

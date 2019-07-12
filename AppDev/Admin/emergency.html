@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DRC Tram Service | Vehicle Page</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+
+    <meta name="author" content="Matt Cuento">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="./css/emergency.css" type="text/css">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <span class="navbar-text">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item dropdown">
+            <a title="Scheduling" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a title="New Ride" class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+              <a title="Edit/Delete Ride" class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+            </div>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register_admin.html">Add an Admin</a>
+        </li>
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+        <li class="nav-item active">
+          <a title="Vehicles" class="nav-link" href="./emergency.html">Vehicles</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a title="More" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <!-- <a title="Register Student" class="dropdown-item" href="./register.html">Register Student</a> -->
+              <a title="Help" class="dropdown-item" href="./admin_howto.html">Help</a>
+              <a title="Logout" class="dropdown-item" href="../Login/login.html" onclick="logout()">Logout</a>
+            </div>
+        </li>
+      </ul>
+    </div>
+    </span>
+    </nav>
+    <!-- End of Navigation Bar -->
+
+    <br>
+    <!--headings-->
+    <div class="wrapper">
+        <div class="page_title">
+            <h1 class="title_display">Vehicles</h1>
+        </div>
+        <div class="decorativeLine"></div>
+        <div class="filler"></div>
+
+        <div id="vehicleList">
+        </div>
+
+        <div class="buts">
+            <button class="greenButton" id="add" style="width: 15%;">Add Vehicle</button>
+        </div>
+
+        <!--add a vehicle popup-->
+        <div id="addPop" class="popup">
+            <div class="add-content">
+                <h2 id="popup-title">Add a Vehicle</h2>
+                <div class="decorativeLine"></div>
+                <br>
+                <div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="type-input">
+                                <p>Vehicle Type</p>
+                            </label>
+                        </div>
+                        <div>
+                            <select id="type-input">
+                                <option value="Van">Van</option>
+                                <option value="Cart">Golf Cart</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="plate-input">
+                                <p>License Plate</p>
+                            </label>
+                        </div>
+                        <div><input id="plate-input" class="textBoxes" type="text" maxlength="7" /></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="accessibility-input">
+                                <p>Wheelchair Accessible?</p>
+                            </label>
+                        </div>
+                        <div><input id="accessibility-input" type="checkbox" /></div>
+                    </div>
+                </div>
+                <br>
+                <div class="pop-button">
+                    <button id="popup-add" class="greenButton" type="button">Add</button>
+                    <button id="popup-cancel-add" class="greenButton" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <!--end add a vehicle popup-->
+
+        <!--save a vehicle popup-->
+        <div id="savePop" class="popup">
+            <div class="save-content">
+                <span class="close" tabindex="0">&times;</span>
+                <p>You've sucessfully saved the vehicle!</p>
+            </div>
+        </div>
+        <!--invalid student popup-->
+        <div id="invalidPop" class="popup">
+            <div class="invalid-content">
+                <span class="close" tabindex="0">&times;</span>
+                <p>Please fill out all fields!</p>
+            </div>
+        </div>
+
+        <div id="editPop" class="popup">
+            <div class="edit-content">
+                <h2 id="popup-title">Edit Vehicle</h2>
+                <div class="decorativeLine"></div>
+                <br>
+                <div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="type-edit">
+                                <p>Vehicle Type</p>
+                            </label>
+                        </div>
+                        <div>
+                            <select id="type-edit">
+                                <option value="Van">Van</option>
+                                <option value="Cart">Golf Cart</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="plate-edit">
+                                <p>License Plate</p>
+                            </label>
+                        </div>
+                        <div><input id="plate-edit" class="textBoxes" type="text" maxlength="7" /></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="accessibility-edit">
+                                <p>Wheelchair Accessible?</p>
+                            </label>
+                        </div>
+                        <div><input id="accessibility-edit" type="checkbox" /></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="outoforder-edit">
+                                <p>Out of Order?</p>
+                            </label>
+                        </div>
+                        <div><input id="outoforder-edit" type="checkbox" /></div>
+                    </div>
+                </div>
+                <br>
+                <div class="pop-button">
+                    <button id="popup-save-edit" class="greenButton" type="button">Save</button>
+                    <button id="popup-cancel-edit" class="greenButton" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!--confirm delete schedule popup-->
+        <div id="confirmDelPop" class="popup">
+            <div class="remove-content">
+                <h4 style="text-align: center;">Are you sure you want to delete this vehicle?</h4>
+                <br>
+                <div class="pop-button" style="align-items: center;">
+                    <button id="popup-confirm-delete" class="greenButton" type="button">Yes</button>
+                    <button id="popup-decline-delete" class="greenButton" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function logout(){
+            var logout = confirm("Are you sure to log out?");
+            if (logout){
+                firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+                }).catch(function(error) {
+                  // An error happened.
+                });
+            }
+        }
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (!user){
+            alert("You haven't signed in yet, we are directing you to the login page");
+            window.location = "../Login/login.html";
+          }else{
+            console.log(user.email);
+          }
+        });
+    </script>
+    <!--For Bootstrap NavBar-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script src="script/vehicle.js"></script>
+
+</body>
+
+</html>

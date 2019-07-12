@@ -1,0 +1,10 @@
+pre {
+  font-family: Roboto;
+  font-size: 13pt;
+  color: black;
+  font-weight: 400;
+}
+
+a:link, a:visited, a:hover {
+  color: black;
+}

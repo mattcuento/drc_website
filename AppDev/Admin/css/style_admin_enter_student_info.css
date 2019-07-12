@@ -1,0 +1,78 @@
+/* Admin - Enter Student Info Style Page */
+
+
+/* Additional info text area on Admin - Enter Student Info */
+#notes {
+  border: 1px solid #dedede;
+  font-size: 12pt;
+  font-family: Roboto;
+}
+
+#studentInfo {
+  font-family: Roboto;
+  color: black;
+}
+
+.eachInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+#addStudent {
+  display: flex;
+  flex-direction: column;
+}
+
+.buts{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.popup {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.save-content, .invalid-content {
+  background-color: #fefefe;
+  margin: 15% 20%;
+  /* 15% from the top and centered */
+  padding: 30px;
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

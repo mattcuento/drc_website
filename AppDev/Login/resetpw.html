@@ -1,0 +1,63 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cal Poly DRC Tram Service | Reset Password</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase Authentication and prebuild UI-->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/loginstyles.css">
+</head>
+
+<div>
+    <br><br>
+    <h3><label for="resetEmail">Please enter your Cal Poly email</label></h3>
+    <input class="textBoxes" id="resetEmail" name="email" ng-model="theEmail" type="email" placeholder="username@calpoly.edu" required />
+    <br><br>
+    <button id="btnReset" type="submit" class="greenButton" name="ResetButton" value="Login" ng-disabled="form.$invalid" " onclick="sendEmail() ">
+    Reset Password
+    </button>
+    <br><br>
+	<img src="../../images/email.png " alt="Girl in a jacket ">
+	<br><br>
+
+</div>
+
+<script>
+    function sendEmail(){
+        var auth = firebase.auth();
+        var txtEmail = document.getElementById('resetEmail');
+        console.log(txtEmail.value);
+        auth.sendPasswordResetEmail(txtEmail.value).then(function() {
+          alert("An password reset email has been sent! Diverting to login page... ");
+          window.location = "../Login/login.html ";
+        }).catch(function(error) {
+          alert("The email you 've entered is not in our system. Please try again or contact DRC offic for further assistance.");
+        });
+    }
+
+</script>

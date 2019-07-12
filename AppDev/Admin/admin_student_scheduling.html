@@ -1,0 +1,421 @@
+<!-- Admin - New Student Scheduling -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DRC Tram Service | Student Scheduling</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../Admin/css/style_admin_student_scheduling.css">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <span class="navbar-text">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item dropdown">
+            <a title="Scheduling" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a title="New Ride" class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+              <a title="Edit/Delete Ride" class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+            </div>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+        </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register_admin.html">Add an Admin</a>
+        </li>
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+        <li class="nav-item">
+          <a title="Vehicles" class="nav-link" href="./emergency.html">Vehicles</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a title="More" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <!-- <a title="Register Student" class="dropdown-item" href="./register.html">Register Student</a> -->
+                <a title="Help" class="dropdown-item" href="./admin_howto.html">Help</a>
+              <a title="Logout" class="dropdown-item" href="../Login/login.html" onclick="logout()">Logout</a>
+            </div>
+        </li>
+      </ul>
+    </div>
+    </span>
+    </nav>
+    <!-- End of Navigation Bar -->
+
+    <br>
+
+    <div class="wrapper">
+        <h1>Schedule for Students</h1>
+        <div class="decorativeLine"></div>
+        <!-- end decorativeLine -->
+        <div class="filler"></div>
+        <!-- end filler -->
+        <div class="content">
+            <div id="scheduleForm">
+                <form>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="email">
+                          <p>Student Email</p>
+                        </label>
+                        </div>
+                        <div><input class="textBoxes" id="email" placeholder="name@calpoly.edu" required /></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="date">
+                          <p>Date</p>
+                        </label>
+                        </div>
+                        <div><input type="date" id="date" placeholder="MM-DD-YYYY" required /></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="time">
+                          <p>Time</p>
+                        </label>
+                        </div>
+                        <div><input type="time" id="time" required></div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="pickup">
+                        <p>Pick-up Location</p>
+                      </label>
+                        </div>
+                        <div id="locations">
+                            <select id="pickup">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="6R">6R</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="27">27</option>
+            <option value="35">35</option>
+            <option value="42">42</option>
+            <option value="43">43</option>
+            <option value="44">44</option>
+            <option value="45">45</option>
+            <option value="48">48</option>
+            <option value="52">52</option>
+            <option value="56">56</option>
+            <option value="57">57</option>
+            <option value="61">61</option>
+            <option value="100">100</option>
+            <option value="108">108</option>
+            <option value="109">109</option>
+            <option value="112">112</option>
+            <option value="113">113</option>
+            <option value="114">114</option>
+            <option value="124">124</option>
+            <option value="133">133</option>
+            <option value="134">134</option>
+            <option value="150">150</option>
+            <option value="155">155</option>
+            <option value="186">186</option>
+            <option value="197">197</option>
+            <option value="16L">16L</option>
+            <option value="16U">16U</option>
+            <option value="170L">170L</option>
+            <option value="170U">170U</option>
+            <option value="171A">171A</option>
+            <option value="171E">171E</option>
+            <option value="171G">171G</option>
+            <option value="171H">171H</option>
+            <option value="171I">171I</option>
+          </select>
+                        </div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="dropoff">
+                        <p>Drop-off Location</p>
+                      </label>
+                        </div>
+                        <div id="locations">
+                            <select id="dropoff">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="6R">6R</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="27">27</option>
+            <option value="35">35</option>
+            <option value="42">42</option>
+            <option value="43">43</option>
+            <option value="44">44</option>
+            <option value="45">45</option>
+            <option value="48">48</option>
+            <option value="52">52</option>
+            <option value="56">56</option>
+            <option value="57">57</option>
+            <option value="61">61</option>
+            <option value="100">100</option>
+            <option value="108">108</option>
+            <option value="109">109</option>
+            <option value="112">112</option>
+            <option value="113">113</option>
+            <option value="114">114</option>
+            <option value="124">124</option>
+            <option value="133">133</option>
+            <option value="134">134</option>
+            <option value="150">150</option>
+            <option value="155">155</option>
+            <option value="186">186</option>
+            <option value="197">197</option>
+            <option value="16L">16L</option>
+            <option value="16U">16U</option>
+            <option value="170L">170L</option>
+            <option value="170U">170U</option>
+            <option value="171A">171A</option>
+            <option value="171E">171E</option>
+            <option value="171G">171G</option>
+            <option value="171H">171H</option>
+            <option value="171I">171I</option>
+          </select>
+                        </div>
+                    </div>
+                    <div id="eachInfo">
+                        <div>
+                            <p>Is this a repeating ride?</p>
+                        </div>
+                        <div>
+                            <input id="reoccuring-yes" type="radio" name="reoccur" />
+                            <label for="reoccuring-yes">Yes</label>
+                            <input id="reoccuring-no" type="radio" name="reoccur" />
+                            <label for="reoccuring-no">No</label>
+                        </div>
+                    </div>
+
+                    <div id="reoccurPopup" style="display: none;">
+                        <div id="eachInfo">
+                            <div>
+                                <p>Which Days?</p>
+                            </div>
+                            <div>
+                                <input id="monday" type="checkbox" value="1" />
+                                <label for="monday">Monday</label>
+                                <input id="tuesday" type="checkbox" value="2" />
+                                <label for="tuesday">Tuesday</label>
+                                <input id="wednesday" type="checkbox" value="3" />
+                                <label for="wednesday">Wednesday</label>
+                                <input id="thursday" type="checkbox" value="4" />
+                                <label for="thursday">Thursday</label>
+                                <input id="friday" type="checkbox" value="5" />
+                                <label for="friday">Friday</label>
+                            </div>
+                        </div>
+
+                        <div id="eachInfo">
+                            <div>
+                                <label for="end-repeat-date">
+                            <p>End Repeat</p>
+                          </label>
+                            </div>
+                            <div><input type="date" id="end-repeat-date" placeholder="MM-DD-YYYY" required /></div>
+                        </div>
+                    </div>
+
+                    <div id="buts">
+                        <button class="greenButton" id="saveButton" type="button">Save</button>
+                        <label for="cancelButton"><input id ="cancelButton" class="greenButton" type="reset" value="Cancel" title="cancel button"></label>
+                    </div>
+                    <!-- end buts -->
+            </div>
+            </form>
+        </div>
+        <!-- end scheduleForm -->
+        <div id="mapHolder">
+            <div id="map" style = "position:absolute; left:70%; top:18%;"></div>
+        </div>
+    </div>
+    <div class="descriptions_link" >
+        <br>
+        <a href="map_descriptions.html" style = "position:absolute; left:70%; top:25%;">
+            <p><em><u>List View of Map Descriptions<u></em></p>
+        </a>
+    </div>
+
+    <!--save a schedule popup-->
+    <div id="savePop" class="popup">
+        <div class="save-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>You've sucessfully saved the student's ride!</p>
+        </div>
+    </div>
+    <!--end save a student popup-->
+
+    <!--invalid student popup-->
+    <div id="notFoundPopup" class="popup">
+        <div class="not-found-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>Student not found!</p>
+        </div>
+    </div>
+
+    <!--invalid student popup-->
+    <div id="invalidPop" class="popup">
+        <div class="invalid-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>Please fill out all of the required information</p>
+        </div>
+    </div>
+
+    <!--invalid student popup-->
+    <div id="passEligPopup" class="popup">
+        <div class="pass-eligibility-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>You tried to schedule rides past the student's eligibility date. They've been scheduled up to the eligibility date instead.</p>
+        </div>
+    </div>
+
+    <!--invalid student popup-->
+    <div id="passEligOncePopup" class="popup">
+        <div class="pass-eligibility-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>Error! You tried to schedule rides past the student's eligibility date.</p>
+        </div>
+    </div>
+
+    </div>
+    <!-- end wrapper -->
+</body>
+
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+
+<script>
+    function logout() {
+        var logout = confirm("Are you sure to log out?");
+        if (logout) {
+            firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            alert("You haven't signed in yet, we are directing you to the login page");
+            window.location = "../Login/login.html";
+        } else {
+            console.log(user.email);
+        }
+    });
+</script>
+
+<script>
+    var bounds = [
+        [-120.683, 35.295], // Southwest coordinates
+        [-120.65, 35.316] // Northeast coordinates
+    ];
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWN1ZW50byIsImEiOiJjamMyaXRwNGUwZ21zMnFrYWZreXU3aTFxIn0.8Gw-Vgw0Wi71eHSIwP2JZQ';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mcuento/cjq0arti42wvz2rp7of711qbw', // stylesheet location
+        center: [-120.659809, 35.301004],
+        zoom: 15.0,
+        maxBounds: bounds
+    });
+
+    map.on('click', function(e) {
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ['drcstops']
+        });
+        if (!features.length) {
+            return;
+        }
+        var feature = features[0];
+        var popup = new mapboxgl.Popup({
+                offset: [0, -15]
+            })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML('<h2>' + feature.properties.stopnum + '</h2><h5>' + feature.properties.description + '</h5>')
+            .setLngLat(feature.geometry.coordinates)
+            .addTo(map);
+    });
+</script>
+
+<script src="script/newSchedule.js"></script>
+
+</html>

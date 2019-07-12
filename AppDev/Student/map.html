@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8' />
+    <title> DRC Tram Service | Track Drivers</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./css/map.css" type="text/css" />
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+</head>
+
+<body>
+    <div id='map'></div>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between" style="padding: 0 10%; z-index: 1;">
+        <a title="Home" class="navbar-brand" href="./index.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly Logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <span class="navbar-text">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./map_descriptions.html">Map Descriptions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./student_how_to.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Login/login.html" onclick="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </span>
+    </nav>
+    <!-- end of nav bar -->
+
+    <script>
+        function logout() {
+            var logout = confirm("Are you sure to log out?");
+            if (logout) {
+                firebase.auth().signOut().then(function() {
+                    window.location = "../Login/login.html"
+
+                }).catch(function(error) {
+                    // An error happened.
+                });
+            }
+        }
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                alert("You haven't signed in yet, we are directing you to the login page");
+                window.location = "../Login/login.html";
+            } else {
+                console.log(user.email);
+            }
+        });
+
+        var bounds = [
+            [-120.683, 35.295], // Southwest coordinates
+            [-120.65, 35.316] // Northeast coordinates
+        ];
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2FscG9seWRyYyIsImEiOiJjanQzbTdyY3oxdmM1M3lwaXBodnYxdWZyIn0.ExsTXwSdoYErBWNRc-y09Q';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/calpolydrc/cjt3m8xjq1lov1fpa62pvwjni',
+            center: [-120.659809, 35.301004],
+            zoom: 15.0,
+            maxBounds: bounds
+        });
+
+        map.on('click', function(e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['drcstops']
+            });
+
+            if (!features.length) {
+                return;
+            }
+
+            var feature = features[0];
+
+            var popup = new mapboxgl.Popup({
+                    offset: [0, -15]
+                })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML('<h2>' + feature.properties.stopnum + '</h2><p>' + feature.properties.description + '</p>')
+                .setLngLat(feature.geometry.coordinates)
+                .addTo(map);
+        });
+    </script>
+</body>
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+</html>

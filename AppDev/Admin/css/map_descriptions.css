@@ -1,0 +1,16 @@
+/* Mapbox */
+#map {
+  position: absolute;
+  width:30%;
+  height:70%;
+  right: 20px;
+}
+
+.stop_name {
+    width: 150px;
+}
+
+#description_table {
+    float: left;
+    width: 60%;
+}

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cal Poly DRC Tram Service | Student Main Page</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
+
+    <meta name="author" content="Zoe Li">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="./script/editride.js"></script>
+
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="./css/student_styles.css">
+
+</head>
+
+<body>
+
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./index.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly Logo"> DRC Tram Service
+        </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <span class="navbar-text">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a title="Map" class="nav-link" href="#" onclick="editRide()">Add Ride</a>
+                </li>
+                <li class="nav-item">
+                    <a title="Map" class="nav-link" href="#" onclick="addRide(); setDropDown()">Edit/Delete Ride</a>
+                </li>
+                <li class="nav-item">
+                    <a title="Map" class="nav-link" href="./map_descriptions.html">Map Descriptions</a>
+                </li>
+                <li class="nav-item">
+                    <a title="Help Page" class="nav-link" href="./student_how_to.html">Help</a>
+                </li>
+                <li class="nav-item">
+                    <a title="Logout" class="nav-link" href="../Login/login.html" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </span>
+    </nav>
+    <!-- end of nav bar -->
+
+    <div class="wrapper">
+        <br>
+        <div id="content">
+            <!-- Calendar -->
+            <div id="calendar" style="width: 90%; background:white; text-align: center;">
+                <div class="ui container">
+                    <div class="ui grid">
+                        <div class="ui sixteen column">
+                            <!--Empty buttons from calendar api?-->
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="bottom_bar">
+        <div class="bottom_bar_text">
+            <h1 style="color: #FFFFFF;  margin: 0 20px;" meta name="viewport" content="initial-scale=1">Next Ride: </h1>
+            <h2 id="date_bb" style="color: #FFFFFF; margin: 0 20px;" meta name="viewport" content="initial-scale=1"></h2>
+            <h2 id="time_bb" style="color: #FFFFFF;  margin: 0 20px;" meta name="viewport" content="initial-scale=1"></h2>
+            <h2 id="location_bb" style="color: #FFFFFF;  margin: 0 20px;" meta name="viewport" content="initial-scale=1"></h2>
+            <form action="./map.html" method="get" target="_blank">
+                <button title="Track Driver" type="submit" class="greenButtonStudent" style="border: 2px solid white; margin: 0 20px;">Track Driver</button>
+            </form>
+        </div>
+    </div>
+
+    <div>
+
+        <div id="addRide" class="popup">
+            <div class="add-content">
+                <h2 style="text-align: center;">Adding ride</h2>
+                <div class="decorativeLine"></div>
+                <br>
+
+                <div>
+                    <div id="eachInfo">
+                        <div>
+                            <label for="add_date">
+                                <p>Date</p>
+                            </label>
+                        </div>
+                        <div>
+                            <input type="date" id="add_date" />
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="eachInfo">
+                        <div>
+                            <label for="add_time">
+                                <p>Time</p>
+                            </label>
+                        </div>
+                        <div>
+                            <input type="time" id="add_time">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="eachInfo">
+                        <div>
+                            <label for="add_pickup">
+                                <!--possibly locations?-->
+                                <p>Pick-up Location</p>
+                            </label>
+                        </div>
+                        <div id="locations">
+                            <select id="add_pickup" name="Pick-up">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="6R">6R</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="27">27</option>
+                            <option value="35">35</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="48">48</option>
+                            <option value="52">52</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="61">61</option>
+                            <option value="100">100</option>
+                            <option value="108">108</option>
+                            <option value="109">109</option>
+                            <option value="112">112</option>
+                            <option value="113">113</option>
+                            <option value="114">114</option>
+                            <option value="124">124</option>
+                            <option value="133">133</option>
+                            <option value="134">134</option>
+                            <option value="150">150</option>
+                            <option value="155">155</option>
+                            <option value="186">186</option>
+                            <option value="197">197</option>
+                            <option value="16L">16L</option>
+                            <option value="16U">16U</option>
+                            <option value="170L">170L</option>
+                            <option value="170U">170U</option>
+                            <option value="171A">171A</option>
+                            <option value="171E">171E</option>
+                            <option value="171G">171G</option>
+                            <option value="171H">171H</option>
+                            <option value="171I">171I</option>
+                        </select>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="eachInfo">
+                        <div>
+                            <label for="add_dropoff">
+                                <p>Drop-off Location</p>
+                            </label>
+                        </div>
+                        <div id="locations">
+                            <select id="add_dropoff" name="Drop-off" required>
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="6R">6R</option
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="27">27</option>
+                            <option value="35">35</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="48">48</option>
+                            <option value="52">52</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="61">61</option>
+                            <option value="100">100</option>
+                            <option value="108">108</option>
+                            <option value="109">109</option>
+                            <option value="112">112</option>
+                            <option value="113">113</option>
+                            <option value="114">114</option>
+                            <option value="124">124</option>
+                            <option value="133">133</option>
+                            <option value="134">134</option>
+                            <option value="150">150</option>
+                            <option value="155">155</option>
+                            <option value="186">186</option>
+                            <option value="197">197</option>
+                            <option value="16L">16L</option>
+                            <option value="16U">16U</option>
+                            <option value="170L">170L</option>
+                            <option value="170U">170U</option>
+                            <option value="171A">171A</option>
+                            <option value="171E">171E</option>
+                            <option value="171G">171G</option>
+                            <option value="171H">171H</option>
+                            <option value="171I">171I</option>
+                        </select>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="eachInfo">
+                        <div>
+                            <p>Is this a repeating ride?</p>
+                        </div>
+                        <div>
+                            <input id="reoccuring-yes" type="radio" name="reoccur" />
+                            <label for="reoccuring-yes">Yes</label>
+                            <input id="reoccuring-no" type="radio" name="reoccur" />
+                            <label for="reoccuring-no">No</label>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="reoccurPopup" style="display: none;">
+                        <div id="eachInfo">
+                            <div>
+                                <p>Which Days?</p>
+                            </div>
+                            <div>
+                                <input id="monday" type="checkbox" value="1" />
+                                <label for="monday">Monday</label>
+                                <input id="tuesday" type="checkbox" value="2" />
+                                <label for="tuesday">Tuesday</label>
+                                <input id="wednesday" type="checkbox" value="3" />
+                                <label for="wednesday">Wednesday</label>
+                                <input id="thursday" type="checkbox" value="4" />
+                                <label for="thursday">Thursday</label>
+                                <input id="friday" type="checkbox" value="5" />
+                                <label for="friday">Friday</label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div id="eachInfo">
+                            <div>
+                                <label for="end-repeat-date">
+                                    <p>End Repeat</p>
+                                </label>
+                            </div>
+                            <div><input type="date" id="end-repeat-date" placeholder="MM-DD-YYYY" required /></div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="pop-button" style="align-items: center;">
+                    <button id="saveButton" type="submit" class="greenButton">Add</button>
+                    <button id="cancel-add" class="greenButton" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--save a schedule popup-->
+    <div id="savePop" class="popup">
+        <div class="save-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>You've sucessfully saved the student's ride!</p>
+        </div>
+    </div>
+    <!--end save a student popup-->
+
+    <div id="editRide" class="popup">
+        <div class="edit-content">
+            <h2 style="text-align: center;">Editing / Deleting ride</h2>
+            <div class="decorativeLine"></div>
+            <br>
+            <div id="select_ride">
+                <div id="eachInfo">
+                    <div>
+                        <label for="rides">
+                            <p>Please select the ride you would like to edit or delete:</p>
+                        </label>
+                    </div>
+                    <div>
+                        <select id="rides" onchange="setForm()">
+                    <option value="unique_id_here">----Choose a Ride----</option>
+                </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div>
+                <div id="eachInfo">
+                    <div>
+                        <label for="edit_date">
+                            <p>Date</p>
+                        </label>
+                    </div>
+                    <div>
+                        <input id="edit_date" type="date" />
+                    </div>
+                </div>
+                <br>
+                <div id="eachInfo">
+                    <div>
+                        <label for="edit_time">
+                            <p>Time</p>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="time" id="edit_time">
+                    </div>
+                </div>
+                <br>
+                <div id="eachInfo">
+                    <div>
+                        <label for="edit_pickup">
+                            <p>Pick-up Location</p>
+                        </label>
+                    </div>
+                    <div id="locations">
+                        <select id="edit_pickup" name="Pick-up">
+                                <option value="1">1</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="6R">6R</option
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="27">27</option>
+                                <option value="35">35</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="48">48</option>
+                                <option value="52">52</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="61">61</option>
+                                <option value="100">100</option>
+                                <option value="108">108</option>
+                                <option value="109">109</option>
+                                <option value="112">112</option>
+                                <option value="113">113</option>
+                                <option value="114">114</option>
+                                <option value="124">124</option>
+                                <option value="133">133</option>
+                                <option value="134">134</option>
+                                <option value="150">150</option>
+                                <option value="155">155</option>
+                                <option value="186">186</option>
+                                <option value="197">197</option>
+                                <option value="16L">16L</option>
+                                <option value="16U">16U</option>
+                                <option value="170L">170L</option>
+                                <option value="170U">170U</option>
+                                <option value="171A">171A</option>
+                                <option value="171E">171E</option>
+                                <option value="171G">171G</option>
+                                <option value="171H">171H</option>
+                                <option value="171I">171I</option>
+                            </select>
+                    </div>
+                </div>
+                <br>
+                <div id="eachInfo">
+                    <div>
+                        <label for="edit_dropoff">
+                             <p>Drop-off Location</p>
+                        </label>
+                    </div>
+                    <div id="locations">
+                        <select id="edit_dropoff" name="Drop-off">
+                                <option value="1">1</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="6R">6R</option
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="27">27</option>
+                                <option value="35">35</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="48">48</option>
+                                <option value="52">52</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="61">61</option>
+                                <option value="100">100</option>
+                                <option value="108">108</option>
+                                <option value="109">109</option>
+                                <option value="112">112</option>
+                                <option value="113">113</option>
+                                <option value="114">114</option>
+                                <option value="124">124</option>
+                                <option value="133">133</option>
+                                <option value="134">134</option>
+                                <option value="150">150</option>
+                                <option value="155">155</option>
+                                <option value="186">186</option>
+                                <option value="197">197</option>
+                                <option value="16L">16L</option>
+                                <option value="16U">16U</option>
+                                <option value="170L">170L</option>
+                                <option value="170U">170U</option>
+                                <option value="171A">171A</option>
+                                <option value="171E">171E</option>
+                                <option value="171G">171G</option>
+                                <option value="171H">171H</option>
+                                <option value="171I">171I</option>
+                            </select>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div class="pop-button" style="align-items: center;">
+                <button id="editSubmit" type="button" class="greenButton" onclick="editForm()">Submit</button>
+                <button id="editDelete" class="greenButton" type="button" onclick="deleteForm()">Delete</button>
+                <button id="cancel-edit" class="greenButton" type="button" onclick="cancel_edit()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!--invalid student popup-->
+    <div id="invalidPop" class="popup">
+        <div class="invalid-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>Please fill out all of the required information</p>
+        </div>
+    </div>
+
+</body>
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.5.7/angular-messages.min.js"></script>
+
+<!--For Calendar-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+
+<script src="./script/calendar.js"></script>
+<script src="./script/addride.js"></script>
+
+
+<script>
+    var popup = document.getElementById('mapPopup');
+    var img = document.getElementById('map');
+    var popupImg = document.getElementById("img01");
+
+    img.onclick = function() {
+        popup.style.display = "block";
+        popupImg.src = this.src;
+    }
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        popup.style.display = "none";
+    }
+
+    function editRide() {
+        var y = document.getElementById("addRide");
+        var x = document.getElementById("editRide");
+        if (x.style.display === "none" && y.style.display === "none") {
+            y.style.display = "block";
+        } else if (x.style.display === "none" && y.style.display === "block") {
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+
+    function addRide() {
+        var x = document.getElementById("addRide");
+        var y = document.getElementById("editRide");
+        if (x.style.display === "none" && y.style.display === "none") {
+            y.style.display = "block";
+        } else if (x.style.display === "none" && y.style.display === "block") {
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+
+    function showRepeat() {
+        var x = document.getElementById("repeat");
+        var y = document.getElementById("check_yes");
+        if (y.checked == true) {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function logout() {
+        var logout = confirm("Are you sure to log out?");
+        if (logout) {
+            firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+    }
+
+    function cancel_edit() {
+        var x = document.getElementById("editRide");
+        x.style.display = "none";
+    }
+
+    angular.module('dateInputExample', [])
+        .controller('DateController', ['$scope', function($scope) {
+            $scope.example = {
+                value: new Date(2013, 9, 22)
+            };
+        }]);
+</script>
+
+</html>

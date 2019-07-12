@@ -1,0 +1,134 @@
+<!-- Admin - Main Page -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DRC Tram Service | Admin Drivers Page</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+
+  <!--Firebase setup start-->
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+          authDomain: "drc-tram.firebaseapp.com",
+          databaseURL: "https://drc-tram.firebaseio.com",
+          projectId: "drc-tram",
+          storageBucket: "drc-tram.appspot.com",
+          messagingSenderId: "957207324599"
+      };
+      firebase.initializeApp(config);
+  </script>
+  <!--Firebase setup end-->
+
+  <!-- Bootstrap CSS -->
+  <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/admin_driver.css">
+</head>
+<body>
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+  <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+    <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly Logo"> DRC Tram Service
+</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <span class="navbar-text">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+            <a class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+      </li>
+        <li class="nav-item">
+          <a title="Register Student" class="nav-link" href="./register_admin.html">Add an Admin</a>
+        </li>
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./emergency.html">Vehicles</a>
+      </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <a title="Register Student" class="dropdown-item" href="./register.html">Register Student</a> -->
+            <a class="dropdown-item" href="./admin_howto.html">Help</a>
+            <a class="dropdown-item" href="../Login/login.html" onclick="logout()">Logout</a>
+          </div>
+      </li>
+    </ul>
+  </div>
+  </span>
+</nav>
+<!-- End of Navigation Bar -->
+
+  <div class="wrapper">
+    <br>
+    <h1>Drivers</h1>
+    <div class="decorativeLine"></div> <!-- end decorativeLine -->
+    <br>
+    <table id="table" style="width:70%; margin: 0 auto;">
+        <tr id="headers">
+            <th>Driver</th>
+            <th>Status</th>
+            <th>Wheelchair</th>
+        </tr>
+    </table>
+  </div> <!-- end wrapper -->
+</body>
+
+<script>
+    function logout(){
+        var logout = confirm("Are you sure to log out?");
+        if (logout){
+            firebase.auth().signOut().then(function() {
+            window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+              // An error happened.
+            });
+        }
+    }
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user){
+        alert("You haven't signed in yet, we are directing you to the login page");
+        window.location = "../Login/login.html";
+      }else{
+        console.log(user.email);
+      }
+    });
+</script>
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="./script/driver.js"></script>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cal Poly DRC Tram Service | Driver Main Page</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./css/driver_main.css" type="text/css" />
+    <script type="text/javascript" src="./script/driver_location.js" defer></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+
+        // Initialize your Firebase app
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="buttons">
+        <label><input type="checkbox" onclick="change_status()" id="wheelchair">Wheelchair</label>
+        <div id="timer"></div>
+        <button onclick="leaving_soon_timer()" class="main_buttons" id="leaving_soon">Leaving Soon</button>
+        <button class="main_buttons" id="logout" onclick="logout()">Logout</button>
+        <button id="display" class="main_buttons">Display</button>
+    </div>
+    <div id="modal_content" style="display: none;">
+        <div class="student-info" id="info">
+            <!--collect and add student info here-->
+        </div>
+    </div>
+</body>
+<script src="./script/driver_main.js"></script>
+<script src="./script/firebase.js"></script>
+<script>
+    function logout() {
+        var logout = confirm("Are you sure to log out?");
+        if (logout) {
+            firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            alert("You haven't signed in yet, we are directing you to the login page");
+            window.location = "../Login/login.html";
+        } else {
+            console.log(user.email);
+        }
+    });
+</script>
+
+</html>

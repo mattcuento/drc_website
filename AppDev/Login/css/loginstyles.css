@@ -1,0 +1,62 @@
+.main {
+  background-color: white;
+  width: 40vw;
+  position: relative;
+  left: 30%;
+  border-radius: 4px;
+  margin: 30px 0;
+  padding: 10px 10px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.decorativeLineThin {
+    height: 2px;
+    background-color: gray;
+    width: 22vw;
+}
+
+.loginCard {
+  position: relative;
+  left: 15%;
+  width: 30vw;
+  padding: 20px 40px;
+  margin: 5px 5px;
+  border-radius: 3px;
+}
+
+.loginInputs, #loginHeader {
+  text-align: left;
+}
+
+.greenButton {
+    width: 22vw;
+    height: 35px;
+    font-size: 10pt;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+input {
+    color: gray;
+}
+
+h2 {
+    font-size: 13pt;
+    margin-bottom: 3px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+	font-size: 8pt;
+	color: gray;
+	margin: 3px;
+}

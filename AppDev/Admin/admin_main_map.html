@@ -1,0 +1,245 @@
+<!-- Admin - Main Page -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DRC Tram Service | Admin Home Page</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="./script/all_locations.js" defer></script>
+
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/admin_main_map.css">
+</head>
+
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between" style="padding: 0 10%;">
+        <a title="Home" class="navbar-brand" href="./admin_main_map.html">
+            <img src="../../images/cp.png" width="30" height="30" class="d-inline-block align-top" alt="Cal Poly logo"> DRC Tram Service
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+        <span class="navbar-text">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+          <a title="Scheduling" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Scheduling</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="New Ride" class="dropdown-item" href="./admin_student_scheduling.html">New Ride</a>
+            <a title="Edit/Delete Ride" class="dropdown-item" href="./admin_edit_or_delete_ride.html">Edit/Delete Ride</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a title="Register Student" class="nav-link" href="./register.html">Register Student</a>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a title="Drivers" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Drivers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_drivers.html">Driver Status</a>
+            <a title="Logout" class="dropdown-item" href="./register_driver.html">Add a Driver</a>
+          </div>
+      </li>
+      <li class="nav-item">
+        <a title="Vehicles" class="nav-link" href="./emergency.html">Vehicles</a>
+      </li>
+      <li class="nav-item dropdown">
+          <a title="More" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a title="Help" class="dropdown-item" href="./admin_howto.html">Help</a>
+            <a title="Logout" class="dropdown-item" href="../Login/login.html" onclick="logout()">Logout</a>
+          </div>
+      </li>
+    </ul>
+  </div>
+  </span>
+    </nav>
+    <!-- End of Navigation Bar -->
+
+    <div class="wrapper">
+        <br>
+        <h1>Admin Home Page</h1>
+        <div class="decorativeLine"></div>
+        <!-- end decorativeLine -->
+        <br>
+        <div id="content">
+            <div id="searchStudent">
+                <label for="email">
+        <h2>Search for a Student</h2>
+      </label>
+                <div style="height: 15px;"></div>
+                <!-- end filler space -->
+                <div class="info">
+                    <input id="email" type="text" class="textBoxes" placeholder="Student Email">
+                    <button title="Search for a Student" id="searchButton" class="greenButton" type="button">Search</button>
+                </div>
+                <!-- end info -->
+                <div id="results">
+                    <h4 id="resultText" style="padding-top: 20px">Search results:</h4>
+                    <p id="studentName" style="padding-top: 20px; padding-bottom: 0px;font-weight: bold;"></p>
+                    <p id="studentInfo" style="padding-top: 0px;"></p>
+                    <div id="editbutton"></div>
+
+                </div>
+            </div>
+            <!-- end searchStudent -->
+            <div id="map"></div>
+        </div>
+        <div class="descriptions_link">
+            <br>
+            <a href="map_descriptions.html">
+                <p><em><u>List View of Map Descriptions<u></em></p>
+            </a>
+        </div>
+    </div>
+    <!-- end wrapper -->
+
+    <!--edit schedule popup-->
+    <div id="editPop" class="popup">
+        <div class="edit-content">
+            <h2 style="text-align: center;">Editing Student Permissions</h2>
+            <div class="decorativeLine"></div>
+            <br>
+            <div>
+                <div id="eachInfo">
+                    <div>
+                        <input id="provisional" type="radio" name="permissions" />
+                        <label for="provisional">Provisional</label>
+                    </div>
+                    <div>
+                        <input id="active" type="radio" name="permissions" />
+                        <label for="active">Active</label>
+                    </div>
+                    <div>
+                        <input id="inactive" type="radio" name="permissions" />
+                        <label for="inactive">Inactive</label>
+                    </div>
+                </div>
+                <br>
+                <div id="eachInfo">
+                    <div>
+                        <label for="enddate">
+                        <p>End Eligibility Date</p>
+                      </label>
+                    </div>
+                    <div><input type="date" id="enddate" placeholder="MM-DD-YYYY" required /></div>
+                </div>
+            </div>
+            <br>
+            <div class="pop-button" style="align-items: center;">
+                <button id="popup-save" class="greenButton" type="button">Save</button>
+                <button id="popup-cancel-edit" class="greenButton" type="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!--save a schedule popup-->
+    <div id="savePop" class="popup">
+        <div class="save-content">
+            <span class="close" tabindex="0">&times;</span>
+            <h4>You've sucessfully saved the student eligibility!</h4>
+        </div>
+    </div>
+
+    <!--invalid student popup-->
+    <div id="notFoundPopup" class="popup">
+        <div class="not-found-content">
+            <span class="close" tabindex="0">&times;</span>
+            <p>Student not found!</p>
+        </div>
+    </div>
+</body>
+
+<!--For Bootstrap NavBar-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script>
+    function logout() {
+        var logout = confirm("Are you sure to log out?");
+        if (logout) {
+            firebase.auth().signOut().then(function() {
+                window.location = "../Login/login.html"
+
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            alert("You haven't signed in yet, we are directing you to the login page");
+            window.location = "../Login/login.html";
+        } else {
+            console.log(user.email);
+        }
+    });
+
+    var bounds = [
+        [-120.683, 35.295], // Southwest coordinates
+        [-120.65, 35.316] // Northeast coordinates
+    ];
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FscG9seWRyYyIsImEiOiJjanQzbTdyY3oxdmM1M3lwaXBodnYxdWZyIn0.ExsTXwSdoYErBWNRc-y09Q';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/calpolydrc/cjt3m8xjq1lov1fpa62pvwjni', // stylesheet location
+        center: [-120.659809, 35.301004],
+        zoom: 15.0,
+        maxBounds: bounds
+    });
+
+    map.on('click', function(e) {
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ['drcstops']
+        });
+        if (!features.length) {
+            return;
+        }
+        var feature = features[0];
+        var popup = new mapboxgl.Popup({
+                offset: [0, -15]
+            })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML('<h2>' + feature.properties.stopnum + '</h2><h5>' + feature.properties.description + '</h5>')
+            .setLngLat(feature.geometry.coordinates)
+            .addTo(map);
+    });
+</script>
+
+<script src="script/mainPage.js"></script>
+
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cal Poly DRC Tram Service | Log In</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/cp.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!--Firebase setup start-->
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyDx_Zs0728gUVuZfN2zTJeo9KsOmp_AZ4U",
+            authDomain: "drc-tram.firebaseapp.com",
+            databaseURL: "https://drc-tram.firebaseio.com",
+            projectId: "drc-tram",
+            storageBucket: "drc-tram.appspot.com",
+            messagingSenderId: "957207324599"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <!--Firebase setup end-->
+
+    <!--Firebase Authentication and prebuild UI-->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap_css/bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/loginstyles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.5.7/angular-messages.min.js"></script>
+</head>
+
+<body>
+    <br>
+    <!--insert Main Header-->
+    <div class="drcHeader">
+        <h1>Welcome to DRC Tram Service!</h1>
+    </div>
+    <div class="decorativeLine"></div>
+    <div class="main">
+        <div class="container">
+            <!--Login information-->
+            <div class="loginCard">
+                <h1 id="loginHeader">Login</h1>
+                <div class="decorativeLineThin"></div>
+                <div class="loginInputs">
+                    <h2><label for="txtEmail">Email</label></h2>
+                    <input class="textBoxes" id="txtEmail" name="email" ng-model="theEmail" type="email" placeholder="name@calpoly.edu" required title="email" />
+                    <p class="help-text">
+                        <h2><label for="txtPassword">Password</label></h2>
+                    </p>
+                    <input type="password" class="textBoxes" id="txtPassword" name="user_password" placeholder="password" required ng-model="user.user_password" password-verify="{{user.confirm_password}}">
+                    <div class="help-block" ng-messages="add_user_form.user_password.$error" ng-if="add_user_form.user_password.$dirty">
+                    </div>
+                    <br><br>
+                    <button id="btnLogin" type="submit" class="greenButton" name="loginButton" value="Login" ng-disabled="form.$invalid" onclick="login()">
+                Log in
+                </button>
+                    <a style="font-size: 10pt" href="resetpw.html">Forgot Password?</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script>
+    (function() {
+        "use strict";
+        angular
+            .module('app', ['ngMessages'])
+            .controller('mainCtrl', mainCtrl)
+            .directive('passwordVerify', passwordVerify);
+
+        function mainCtrl($scope) {
+            // Some code
+        }
+
+        function passwordVerify() {
+            return {
+                restrict: 'A', // only activate on element attribute
+                require: '?ngModel', // get a hold of NgModelController
+                link: function(scope, elem, attrs, ngModel) {
+                    if (!ngModel) return; // do nothing if no ng-model
+
+                    // watch own value and re-validate on change
+                    scope.$watch(attrs.ngModel, function() {
+                        validate();
+                    });
+
+                    // observe the other value and re-validate on change
+                    attrs.$observe('passwordVerify', function(val) {
+                        validate();
+                    });
+
+                    var validate = function() {
+                        // values
+                        var val1 = ngModel.$viewValue;
+                        var val2 = attrs.passwordVerify;
+
+                        // set validity
+                        ngModel.$setValidity('passwordVerify', val1 === val2);
+                    };
+                }
+            }
+        }
+    })();
+</script>
+
+</html>

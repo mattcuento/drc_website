@@ -1,0 +1,145 @@
+/* Main Style Page */
+
+body {
+  background-color: #F6F1E9;
+}
+
+.menu{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: space-around;
+  margin: 0% 0 0 0%;
+}
+.btn {
+  background-color: rgb(165, 165, 165);
+  border: none;
+  border-radius: 50%;
+  margin: 5px 10px 5px 0;
+  width: 50px;
+}
+
+.btn > img{
+  max-width: 100%;
+}
+
+h1 {
+  font-family: Roboto;
+  font-size: 26pt;
+  color: black;
+  font-weight: 500;
+}
+
+h2 {
+  font-family: Roboto;
+  font-size: 18pt;
+  color: #035642;
+  font-weight: 500;
+}
+
+h3 {
+	font-family: Roboto;
+}
+
+h4 {
+  font-family: Roboto;
+  font-size: 13pt;
+  color: #035642;
+  font-weight: 500;
+}
+
+p {
+  font-family: Roboto;
+  font-size: 13pt;
+  color: black;
+  font-weight: 400;
+}
+
+.textBoxes {
+  height: 25px;
+  width: 22vw;
+  font-size: 12pt;
+}
+
+/* a big empty rectangle for spacing */
+.bigBuffer {
+  width: 8vw;
+  height: 500px;
+  float: left;
+}
+
+/* a small empty rectangle for spacing */
+.smallBuffer {
+  width: 4vw;
+  height: 400px;
+  float: left;
+}
+
+/* thin green decorative line */
+.decorativeLine {
+  width: device-width;
+  height: 10px;
+  background-color: #035642;
+}
+
+/* green buttons with white text */
+.greenButton {
+  height: 2.7vw;
+  width: 6.5vw;
+  background-color: #035642;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 1.1vw;
+  color: white;
+  font-weight: 500;
+}
+
+/* empty rectangle for padding */
+.filler {
+  height: 40px;
+}
+
+.wrapper {
+  width: 80%;
+  height: 100%;
+  left: 10%;
+  position: absolute;
+}
+
+#container_1 {
+  background-image: url("../../images/index_background.png");
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#container_2 {
+  width: 60%;
+  height: 90%;
+  vertical-align: middle;
+}
+
+.index_btns {
+  height: 80px;
+  width: 200px;
+  background-color: #035642;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 27pt;
+  color: white;
+  font-weight: 500;
+}
+
+.navbar.navbar-expand-lg.navbar-light.bg-light a {
+  color: black;
+}
+
+.navbar.navbar-expand-lg.navbar-light.bg-light a:hover {
+  color: grey;
+}
