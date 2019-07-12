@@ -5,3 +5,7 @@ A website intended to revamp the transportation system used by Cal Poly's Disabi
 The project was unfortunately scrapped due to conflicts with Cal Poly's software policies. The unfinished site is visible [here](https://drc-tram.firebaseapp.com). Some areas may still have authentication in place.
 
 A team of 4 coders comprised of computer science and software engineering majors contributed to this project together.
+
+## Technologies Used
+
+We used Angular, vanilla JS, and Bootstrap for our front-end. To accompany this, we utilized Firebase for our backend for ease of use.
