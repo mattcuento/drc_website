@@ -6,7 +6,7 @@ The project was unfortunately scrapped due to conflicts with Cal Poly's software
 
 A team of 4 coders comprised of computer science and software engineering majors contributed to this project together.
 
-Screenshots are provided [here] (https://drive.google.com/drive/folders/1mP6Z_TPKUHF-TRnAZaip97fUzmYCy23o).
+Screenshots are provided [here](https://drive.google.com/drive/folders/1mP6Z_TPKUHF-TRnAZaip97fUzmYCy23o).
 
 ## Technologies Used
 
